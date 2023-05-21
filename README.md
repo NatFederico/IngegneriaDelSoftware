@@ -21,4 +21,4 @@ I commit sono segnalati come:
 
 ## Documentazione
 
-La documentazione delle API può essere trovata su [apiary.io](myscuderia.docs.apiary.io) mentre per la restante fare riferimento ai deliverables consegnati.
+La documentazione delle API può essere trovata su [apiary.io](https://myscuderia.docs.apiary.io) mentre per la restante fare riferimento ai deliverables consegnati.
