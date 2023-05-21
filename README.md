@@ -20,4 +20,5 @@ I commit sono segnalati come:
 - ℹ️ updated README.md
 
 ## Documentazione
+
 La documentazione delle API può essere trovata su [apiary.io](www.myscuderia.docs.apiary.io) mentre per la restante fare riferimento ai deliverables consegnati.
