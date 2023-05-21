@@ -1,4 +1,4 @@
-# Progetto di Ingegneria. del Software 2023 - Gruppo 03
+# MyScuderia - Progetto di Ingegneria del Software 2023 (Gruppo 03)
 Autori: *Bellini Mirko, Natali Federico, Sorrentino Sara*
 ## Struttura della repo
 La repository GitHub è composta da due branch:
