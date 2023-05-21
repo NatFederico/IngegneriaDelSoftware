@@ -14,7 +14,7 @@ const TeamSchema = new mongoose.Schema({
     board: BoardSchema,
     gallery: GallerySchema,
     calendar: CalendarSchema,
-    records: [RecordSchema],
+    history: [RecordSchema],
     departments: [DepartmentSchema]
 });
 

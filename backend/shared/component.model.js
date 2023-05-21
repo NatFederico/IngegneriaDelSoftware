@@ -1,23 +1,11 @@
 var mongoose = require('mongoose');
 
 const ComponentSchema = new mongoose.Schema({
-    _id: {
-        type: String
-    },
-    name: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String,
-    },
-    n_available: {
-        type: Number,
-        required: true
-    },
-    depId: {
-        type: String
-    }
+    _id: String,
+    name: String,
+    description: String,
+    n_available: Number,
+    depId: String
 })
 
 const Component = mongoose.model("Component", ComponentSchema);
