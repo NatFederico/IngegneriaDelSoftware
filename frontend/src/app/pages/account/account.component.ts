@@ -17,8 +17,8 @@ export class AccountComponent implements OnInit {
 
   updateProfileForm = this.formBuilder.group({
     username: '',
-    website: '',
-    avatar_url: '',
+    password: '',
+    team: ''
   })
 
   constructor(private readonly supabase: SupabaseService, private formBuilder: FormBuilder) {}
@@ -26,11 +26,11 @@ export class AccountComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.getProfile()
 
-    const { username, website, avatar_url } = this.profile
+    const { username, password, team } = this.profile
     this.updateProfileForm.patchValue({
       username,
-      website,
-      avatar_url,
+      password,
+      team
     })
   }
 
@@ -62,14 +62,14 @@ export class AccountComponent implements OnInit {
       const { user } = this.session
 
       const username = this.updateProfileForm.value.username as string
-      const website = this.updateProfileForm.value.website as string
-      const avatar_url = this.updateProfileForm.value.avatar_url as string
+      const password = this.updateProfileForm.value.password as string
+      const team = this.updateProfileForm.value.team as string
 
       const { error } = await this.supabase.updateProfile({
         id: user.id,
         username,
-        website,
-        avatar_url,
+        password,
+        team
       })
       if (error) throw error
     } catch (error) {
@@ -84,4 +84,5 @@ export class AccountComponent implements OnInit {
   async signOut() {
     await this.supabase.signOut()
   }
+
 }

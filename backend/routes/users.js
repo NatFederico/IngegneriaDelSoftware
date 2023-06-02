@@ -32,7 +32,7 @@ router.put("/:userId/role", async function (req, res) {
   const userId = req.params.userId;
   try {
     if (!res.locals.role) {
-      return res.status(500).send("Error during auth");
+      return res.status(500).send("Error during magicLink");
     } else {
       for (let i = 0; i < res.locals.roles.length; i++) {
         if (res.locals.roles[i] === process.env.ROLE_TP) {

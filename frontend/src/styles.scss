@@ -1,6 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Oswald:500');
 
+html, body {
+  font-family: Oswald, "Roboto Light", sans-serif;
+}
+
+p {
+  font-family: "Roboto Thin", sans-serif;
+  font-size: 0.8rem;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -16,12 +25,108 @@
   font-family: 'Racing Sans One', cursive;
 }
 
+.page_title {
+  padding: 8px;
+  color: black;
+  font-family: 'Racing Sans One', cursive;
+  text-align: center;
+}
 
+button,
+.button {
+  color: black;
+  border: black;
+  background-color: #EF1A2D;
+  text-align: center;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
 
+.form-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding: 15px;
+}
 
+.form-widget > .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: #444444;
+  text-transform: none !important;
+  transition: all 0.2s ease;
+}
 
+.form-widget .button:hover {
+  background-color: #cc0e00;
+  color: white;
+}
 
+.form-widget .button > .loader {
+  width: 17px;
+  animation: spin 1s linear infinite;
+  filter: invert(1);
+}
 
+label {
+  display: block;
+  margin: 5px 0;
+  color: black;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+input {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  padding: 8px;
+  font-size: 0.9rem;
+  color: black;
+}
+
+input[disabled] {
+  color: grey;
+}
+
+/* Create two unequal columns that floats next to each other */
+.row {
+  display: flex;
+}
+
+.column {
+  float: right;
+}
+
+.left {
+  width: 50%;
+}
+
+.blank {
+  width: 10%;
+}
+
+.right {
+  width: 30%;
+}
+
+.vl {
+  border-left: 2px solid #EF1A2D;
+  height: 600px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
 
 

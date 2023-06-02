@@ -8,12 +8,13 @@ import {
   User,
 } from '@supabase/supabase-js'
 import { environment } from 'src/environments/environment'
+import * as diagnostics_channel from "diagnostics_channel";
 
 export interface Profile {
   id?: string
   username: string
-  website: string
-  avatar_url: string
+  password: string
+  team: string
 }
 
 @Injectable({
@@ -37,7 +38,7 @@ export class SupabaseService {
   profile(user: User) {
     return this.supabase
         .from('profiles')
-        .select(`username, website, avatar_url`)
+        .select(`username, password, team`)
         .eq('id', user.id)
         .single()
   }
@@ -48,6 +49,20 @@ export class SupabaseService {
 
   signIn(email: string) {
     return this.supabase.auth.signInWithOtp({ email })
+  }
+
+  signInWithEmail(email: string, pwd: string){
+    return this.supabase.auth.signInWithPassword({
+      email: email,
+      password: pwd,
+    })
+  }
+
+  signUpWithEmail(email: string, pwd: string){
+    return this.supabase.auth.signUp({
+      email: email,
+      password: pwd,
+    })
   }
 
   signOut() {

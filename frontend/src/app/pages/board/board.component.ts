@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {AuthSession} from "@supabase/supabase-js";
 
 @Component({
   selector: 'app-board',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoardComponent implements OnInit {
 
+  @Input()
+  session!: AuthSession
   constructor() { }
 
   ngOnInit(): void {

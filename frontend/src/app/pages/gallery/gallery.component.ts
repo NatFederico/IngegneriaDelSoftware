@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {AuthSession} from "@supabase/supabase-js";
 
 @Component({
   selector: 'app-gallery',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit {
+
+  @Input()
+  session!: AuthSession
 
   constructor() { }
 

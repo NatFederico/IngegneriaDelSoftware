@@ -1,5 +1,9 @@
 <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfile()" class="form-widget">
     <div>
+        <label for="team">Team Name</label>
+        <input id="team" type="text"/>
+    </div>
+    <div>
         <label for="email">Email</label>
         <input id="email" type="text" [value]="session.user.email" disabled />
     </div>
@@ -8,8 +12,8 @@
         <input formControlName="username" id="username" type="text" />
     </div>
     <div>
-        <label for="website">Website</label>
-        <input formControlName="website" id="website" type="url" />
+        <label for="password">Website</label>
+        <input formControlName="password" id="password" type="url" />
     </div>
 
     <div>
