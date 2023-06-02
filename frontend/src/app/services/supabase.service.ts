@@ -62,12 +62,4 @@ export class SupabaseService {
 
     return this.supabase.from('profiles').upsert(update)
   }
-
-  downLoadImage(path: string) {
-    return this.supabase.storage.from('avatars').download(path)
-  }
-
-  uploadAvatar(filePath: string, file: File) {
-    return this.supabase.storage.from('avatars').upload(filePath, file)
-  }
 }

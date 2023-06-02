@@ -13,6 +13,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { AccountComponent } from './pages/account/account.component';
 import { TeamComponent } from './pages/team/team.component';
 import { BoardComponent } from './pages/board/board.component';
+import { StatsComponent } from './pages/stats/stats.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { BoardComponent } from './pages/board/board.component';
     AccountComponent,
     TeamComponent,
     BoardComponent,
+    StatsComponent,
   ],
     imports: [
         BrowserModule,
