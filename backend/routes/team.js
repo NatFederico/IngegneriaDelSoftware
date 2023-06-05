@@ -10,14 +10,17 @@ const { Board } = require("../shared/board.model");
 
 router.get("/:teamId", async function (req, res) {
   const teamId = req.params.teamId;
+  console.log("Your team: " + res.locals.team);
+  console.log("Your id: " + res.locals.uid);
   try {
     if (teamId === res.locals.team) {
       const team = await Team.findById(teamId).exec();
       if (!team) {
-        return res.status(404);
+        return res.status(404).send("Team does not exists");
       }
       return res.status(200).json(team);
-    } else {
+    }
+    else{
       return res.status(401).json({ error: "Unauthorized" });
     }
   } catch (e) {
@@ -204,23 +207,37 @@ router.delete("/:teamId/delete", async function (req, res) {
 });
 
 router.post("/", async function (req, res) {
+  console.log("POST /user");
+  const teamName = req.body.name;
+  console.log("userID= " + teamName);
+
   try {
-    if (res.locals.role === process.env.ROLE_TP) {
-      const team = Team({
-        userId: [res.locals.uid],
-        name: req.body.name,
-        board: new Board(),
-        gallery: new Gallery(),
-        calendar: new Calendar(),
-        history: [],
-        departments: [],
-      });
-      await team.verify();
-      return res.status(201).json(team.save());
-    } else {
-      res.status(401).json({ error: "Unauthorized" });
+    console.log("uid="+res.locals.uid);
+    const team = await Team.exists({name: req.body.name}).exec();
+    if (team == null) {
+      if (res.locals.role === process.env.ROLE_TP) {
+        let newTeam;
+        newTeam = new Team({
+          userId: [res.locals.uid],
+          name: req.body.name,
+          board: new Board(),
+          gallery: new Gallery(),
+          calendar: new Calendar(),
+          history: [],
+          departments: [],
+        });
+        /*await team.verify();*/
+        return res.status(201).json(await newTeam.save());
+      } else {
+        res.status(401).json({error: "Unauthorized"});
+      }
     }
-  } catch (e) {}
+    else{
+      res.status(401).json({error: "Team already exists"});
+    }
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
 });
 
 module.exports = router;

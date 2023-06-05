@@ -1,15 +1,13 @@
 let express = require("express");
 let router = express.Router();
-const User = require("../shared/user.model");
+const {User} = require("../shared/user.model");
 
 router.get("/:userId", async function (req, res) {
   const userId = req.params.userId;
   try {
-    if (userId === res.locals.uid || res.locals.role === process.env.ROLE_TP) {
-      return res.status(200).send(await User.findById(userId).exec());
-    } else {
-      return res.status(401).send();
-    }
+    const response = await User.findById(userId).exec();
+    console.log(response);
+    return res.status(200).send(await User.findById(userId).exec());
   } catch (e) {
     res.status(500).json(e);
   }
@@ -18,11 +16,9 @@ router.get("/:userId", async function (req, res) {
 router.get("/:userId/role", async function (req, res) {
   const userId = req.params.userId;
   try {
-    if (userId === res.locals.uid || res.locals.role === process.env.ROLE_TP) {
-      return res.status(200).send(await User.findById(userId, "role").exec());
-    } else {
-      return res.status(401).send();
-    }
+    const user = await User.findById(userId).exec();
+    console.log(user);
+    return res.status(200).send(await User.find({_id: userId}, "role").exec());
   } catch (e) {
     res.status(500).json(e);
   }
@@ -31,17 +27,17 @@ router.get("/:userId/role", async function (req, res) {
 router.put("/:userId/role", async function (req, res) {
   const userId = req.params.userId;
   try {
-    if (!res.locals.role) {
-      return res.status(500).send("Error during auth");
+    if (userId !== res.locals.uid && res.locals.role === process.env.ROLE_TP) {
+      res
+          .status(200)
+          .send(
+              await User.findByIdAndUpdate(userId, {role: req.body.role})
+          );
     } else {
-      for (let i = 0; i < res.locals.roles.length; i++) {
-        if (res.locals.roles[i] === process.env.ROLE_TP) {
-          res
-            .status(200)
-            .send(
-              await User.findByIdAndUpdate(userId, { role: req.body.role })
-            );
-        }
+      if(userId !== res.locals.uid){
+        return res.status(401).send("As TeamPrincipal you can not change your role");
+      }
+      else{
         return res.status(401).send("Unauthorized");
       }
     }
@@ -51,23 +47,30 @@ router.put("/:userId/role", async function (req, res) {
 });
 
 router.post("/", async function (req, res) {
-  const userId = req.body.uid;
+  console.log("POST /user");
+  const userId = res.locals.uid;
+  console.log("userID= " + res.locals.uid);
+
   try {
-    if (res.locals.uid === userId) {
-      const user = await User.findById(userId).exec();
-      if (user == null) {
-        const newUser = User({
-          _id: req.body.uid,
-          email: req.body.email,
-          first_name: req.body.first_name,
-          surname: req.body.surname,
-          roles: req.body.roles,
-        });
-        await newUser.verify().exec();
-        await newUser.save().exec();
-      }
-      return res.status(201).send(await User.findById(userId, "_id").exec());
+    const user = await User.findById(userId).exec();
+    if (user == null) {
+      console.log("Creating new user...");
+      let newUser;
+      newUser = new User({
+        _id: res.locals.uid,
+        email: res.locals.email,
+        first_name: req.body.first_name,
+        surname: req.body.surname,
+        role: req.body.role,
+      });
+      /*await newUser.verify().exec();*/
+      console.log("User added: " + newUser);
+      await newUser.save();
     }
+    else{
+      return res.status(401).json({error: "User already exists"});
+    }
+    return res.status(201).send(await User.findById(userId).exec());
   } catch (e) {
     res.status(500).send(e.message);
   }
