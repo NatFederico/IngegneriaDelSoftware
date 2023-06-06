@@ -75,8 +75,11 @@ router.put("/:teamId/editTeam/:userId", async function (req, res) {
   const teamId = req.params.teamId;
   const userId = req.params.userId;
   try {
+    console.log("param: " + teamId);
+    console.log("locals: "+ res.locals.team);
     if (res.locals.role === process.env.ROLE_TP && teamId === res.locals.team) {
       const team = await Team.findById(teamId).exec();
+      console.log(team);
       let users = team["userId"];
       for (let i = 0; i < users.length; i++) {
         if (users[i] === userId) {
@@ -85,7 +88,7 @@ router.put("/:teamId/editTeam/:userId", async function (req, res) {
       }
       users.push(userId);
       return res
-        .send(200)
+        .status(200)
         .json(await Team.findByIdAndUpdate(teamId, { userId: users }).exec());
     } else {
       res.status(401).json({ error: "Unauthorized" });
@@ -115,7 +118,7 @@ router.put("/:teamId/addRecord", async function (req, res) {
       await Team.findByIdAndUpdate(teamId, { history: history }).exec();
       return res.status(200).json(record);
     } else {
-      res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ error: "Unauthorized" });
     }
   } catch (e) {
     return res.status(500).json(e.message);
@@ -129,23 +132,19 @@ router.delete("/:teamId/removeUser/:userId", async function (req, res) {
     if (teamId === res.locals.team && res.locals.role === process.env.ROLE_TP) {
       const team = await Team.findById(teamId).exec();
       let users = team["userId"];
-      let updatedList = [String];
+      let updatedList = [];
       for (let i = 0; i < users.length; i++) {
         if (users[i] !== userId) {
-          updatedList.append(users[i]);
+          updatedList.push(users[i]);
         }
       }
-      await User.findByIdAndUpdate(userId, { teamId: null }).exec();
-      return res
-        .send(200)
-        .json(
-          await Team.findByIdAndUpdate(teamId, { userId: updatedList }).exec()
-        );
+      console.log(updatedList);
+      return res.status(200).json(await Team.findByIdAndUpdate(teamId, { userId: updatedList }).exec());
     } else {
-      res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ error: "Unauthorized" });
     }
   } catch (e) {
-    return res.status(500).json(e);
+    return res.status(500).json(e.message);
   }
 });
 
@@ -163,7 +162,7 @@ router.delete("/:teamId/removeRecord/:recordId", async function (req, res) {
         }
       }
       return res
-        .send(200)
+        .status(200)
         .json(
           await Team.findByIdAndUpdate(teamId, { history: updatedList }).exec()
         );

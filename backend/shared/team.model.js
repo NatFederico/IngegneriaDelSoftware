@@ -6,7 +6,7 @@ const {RecordSchema} = require('./record.model')
 const {DepartmentSchema} = require('./department.model')
 
 const TeamSchema = new mongoose.Schema({
-    userId: [String],
+    userId: [],
     name: String,
     board: BoardSchema,
     gallery: GallerySchema,
