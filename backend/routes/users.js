@@ -18,7 +18,7 @@ router.get("/:userId/role", async function (req, res) {
   try {
     const user = await User.findById(userId).exec();
     console.log(user);
-    return res.status(200).send(await User.find({_id: userId}, "role").exec());
+    return res.status(200).send(await User.findById({_id: userId}, "role").exec());
   } catch (e) {
     res.status(500).json(e);
   }
@@ -34,13 +34,13 @@ router.put("/:userId/role", async function (req, res) {
               await User.findByIdAndUpdate(userId, {role: req.body.role})
           );
     } else {
-      if(userId !== res.locals.uid){
-        return res.status(401).send("As TeamPrincipal you can not change your role");
+        if(userId !== res.locals.uid){
+          return res.status(401).send("As TeamPrincipal you can not change your role");
+        }
+        else{
+          return res.status(401).send("Unauthorized");
+        }
       }
-      else{
-        return res.status(401).send("Unauthorized");
-      }
-    }
   } catch (e) {
     res.status(500).json(e);
   }

@@ -32,12 +32,8 @@ router.get("/:teamId/users", async function (req, res) {
   const teamId = req.params.teamId;
   try {
     if (teamId === res.locals.team) {
-      let team = await Team.findById(teamId, "userId").exec();
-      let users = [User];
-      for (let i = 0; i < team.length; i++) {
-        users.append(await User.findById(team[i]));
-      }
-      return res.status(200).json(users);
+      const teamUsers = await Team.findById({_id: teamId}, "userId").exec();
+      return res.status(200).json(teamUsers);
     } else {
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -50,9 +46,8 @@ router.get("/:teamId/history", async function (req, res) {
   const teamId = req.params.teamId;
   try {
     if (teamId === res.locals.team) {
-      return res
-        .status(200)
-        .json(await Team.findById(teamId, "history").exec());
+      const teamHistory = await Team.findById({_id: teamId}, "history").exec();
+      return res.status(200).json(teamHistory);
     } else {
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -75,11 +70,12 @@ router.put("/:teamId", async function (req, res) {
     return res.status(500).json(e.message);
   }
 });
+
 router.put("/:teamId/editTeam/:userId", async function (req, res) {
   const teamId = req.params.teamId;
   const userId = req.params.userId;
   try {
-    if (teamId === res.locals.team && res.locals.role === process.env.ROLE_TP) {
+    if (res.locals.role === process.env.ROLE_TP && teamId === res.locals.team) {
       const team = await Team.findById(teamId).exec();
       let users = team["userId"];
       for (let i = 0; i < users.length; i++) {
@@ -103,8 +99,9 @@ router.put("/:teamId/addRecord", async function (req, res) {
   const teamId = req.params.teamId;
   try {
     if (teamId === res.locals.team && res.locals.role === process.env.ROLE_SM) {
-      const history = await Team.findById(teamId, "history");
-      const record = Record({
+      const team = await Team.findById({_id: teamId}, "history").exec();
+      const history = team["history"];
+      const record = new Record({
         year: req.body.year,
         nameOfGP: req.body.nameOfGP,
         pilotId: req.body.pilotId,
@@ -112,10 +109,11 @@ router.put("/:teamId/addRecord", async function (req, res) {
         isPole: req.body.isPole,
         isFastest: req.body.isFastest,
       });
-      record.verify();
-      history.append(record);
+      await record.save();
+      //record.verify();
+      history.push(record);
       await Team.findByIdAndUpdate(teamId, { history: history }).exec();
-      return res.status(201).json(record);
+      return res.status(200).json(record);
     } else {
       res.status(401).json({ error: "Unauthorized" });
     }
@@ -159,9 +157,9 @@ router.delete("/:teamId/removeRecord/:recordId", async function (req, res) {
       const team = await Team.findById(teamId).exec();
       let history = team["history"];
       let updatedList = [Record];
-      for (let i = 0; i < users.length; i++) {
+      for (let i = 0; i < history.length; i++) {
         if (history[i] !== recordId["_id"]) {
-          updatedList.append(history[i]);
+          updatedList.push(history[i]);
         }
       }
       return res
@@ -207,12 +205,8 @@ router.delete("/:teamId/delete", async function (req, res) {
 });
 
 router.post("/", async function (req, res) {
-  console.log("POST /user");
   const teamName = req.body.name;
-  console.log("userID= " + teamName);
-
   try {
-    console.log("uid="+res.locals.uid);
     const team = await Team.exists({name: req.body.name}).exec();
     if (team == null) {
       if (res.locals.role === process.env.ROLE_TP) {

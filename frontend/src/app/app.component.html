@@ -1,0 +1,26 @@
+<div class="header">
+  <div class="title"> <h1>MyScuderia</h1> </div>
+</div>
+
+<div class="container" style="padding: 50px 0 100px 0">
+
+  <ng-template #auth>
+    <div class="row">
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="column left">
+        <app-sign-in></app-sign-in>
+        <app-magic-link></app-magic-link>
+      </div>
+      <div class="vl"></div>
+      <div class="blank"></div>
+      <div class="column right">
+        <app-sign-up></app-sign-up>
+      </div>
+    </div>
+  </ng-template>
+
+  <app-dashboard *ngIf="session; else auth" [session]="session"></app-dashboard>
+
+</div>
+
