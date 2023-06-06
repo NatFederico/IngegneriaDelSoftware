@@ -75,11 +75,8 @@ router.put("/:teamId/editTeam/:userId", async function (req, res) {
   const teamId = req.params.teamId;
   const userId = req.params.userId;
   try {
-    console.log("param: " + teamId);
-    console.log("locals: "+ res.locals.team);
     if (res.locals.role === process.env.ROLE_TP && teamId === res.locals.team) {
       const team = await Team.findById(teamId).exec();
-      console.log(team);
       let users = team["userId"];
       for (let i = 0; i < users.length; i++) {
         if (users[i] === userId) {
@@ -104,6 +101,14 @@ router.put("/:teamId/addRecord", async function (req, res) {
     if (teamId === res.locals.team && res.locals.role === process.env.ROLE_SM) {
       const team = await Team.findById({_id: teamId}, "history").exec();
       const history = team["history"];
+      console.log(history);
+      for (let i = 0; i < history.length; i++) {
+        console.log("Check name: " + history[i].nameOfGP + " Body: " + req.body.nameOfGP);
+        console.log("Check name: " + history[i].year + " Body:" + req.body.year);
+        if (history[i].nameOfGP == req.body.nameOfGP && history[i].year == req.body.year) {
+          return res.status(200).send("Record already saved");
+        }
+      }
       const record = new Record({
         year: req.body.year,
         nameOfGP: req.body.nameOfGP,
@@ -113,7 +118,6 @@ router.put("/:teamId/addRecord", async function (req, res) {
         isFastest: req.body.isFastest,
       });
       await record.save();
-      //record.verify();
       history.push(record);
       await Team.findByIdAndUpdate(teamId, { history: history }).exec();
       return res.status(200).json(record);
@@ -155,9 +159,10 @@ router.delete("/:teamId/removeRecord/:recordId", async function (req, res) {
     if (teamId === res.locals.team && res.locals.role === process.env.ROLE_TP) {
       const team = await Team.findById(teamId).exec();
       let history = team["history"];
-      let updatedList = [Record];
+      let updatedList = [];
       for (let i = 0; i < history.length; i++) {
-        if (history[i] !== recordId["_id"]) {
+        console.log("history[i]="+history[i]._id + " recordId="+recordId);
+        if (history[i]._id != recordId) {
           updatedList.push(history[i]);
         }
       }
