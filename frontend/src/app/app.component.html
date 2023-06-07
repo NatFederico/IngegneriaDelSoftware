@@ -2,25 +2,17 @@
   <div class="title"> <h1>MyScuderia</h1> </div>
 </div>
 
-<div class="container" style="padding: 50px 0 100px 0">
+<nav>
+  <ul routerLinkActive="active">
+    <li> <a routerLink="/home" routerLinkActive="active" *ngIf="isAuthenticated()">Home</a> </li>
+    <li> <a routerLink="/stats" routerLinkActive="active" *ngIf="isAuthenticated()">Stats</a> </li>
+    <li> <a routerLink="/team" routerLinkActive="active" *ngIf="isAuthenticated()">Team</a> </li>
+    <li> <a routerLink="/gallery" routerLinkActive="active" *ngIf="isAuthenticated()">Gallery</a> </li>
+    <li> <a routerLink="/updatePassword" routerLinkActive="active" *ngIf="isAuthenticated()">Reset Password</a> </li>
+    <li class="logout-nav" routerLinkActive="active" *ngIf="isAuthenticated()"> <a (click)="signOut()">Logout</a> </li>
+    <li> <a routerLink="/login" routerLinkActive="active" *ngIf="!isAuthenticated()">Login</a> </li>
+    <li> <a routerLink="/signup" routerLinkActive="active" *ngIf="!isAuthenticated()">Registrati come TP</a> </li>
+  </ul>
+</nav>
 
-  <ng-template #auth>
-    <div class="row">
-      <div class="blank"></div>
-      <div class="blank"></div>
-      <div class="column left">
-        <app-sign-in></app-sign-in>
-        <app-magic-link></app-magic-link>
-      </div>
-      <div class="vl"></div>
-      <div class="blank"></div>
-      <div class="column right">
-        <app-sign-up></app-sign-up>
-      </div>
-    </div>
-  </ng-template>
-
-  <app-dashboard *ngIf="session; else auth" [session]="session"></app-dashboard>
-
-</div>
-
+<router-outlet></router-outlet>

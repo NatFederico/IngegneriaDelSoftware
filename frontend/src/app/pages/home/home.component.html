@@ -1,0 +1,8 @@
+<div>
+    <button (click)="myProfile()">myProfile</button>
+</div>
+<div>
+    <button (click)="toggleChangePwd()">Change Password</button>
+    <app-update-pwd *ngIf="changePw"></app-update-pwd>
+    <app-create-member></app-create-member>
+</div>

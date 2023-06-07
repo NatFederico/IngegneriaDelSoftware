@@ -4,42 +4,39 @@ import { SupabaseService} from "../../services/supabase.service";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  selector: 'app-requestPwdChange',
+  templateUrl: './request-pwd-change.html',
+  styleUrls: ['./request-pwd-change.scss']
 })
-export class SignInComponent {
+export class RequestPwdChange {
   loading = false
-  forgotPwd = false
 
-  signInForm = this.formBuilder.group({
+  resetPwd = this.formBuilder.group({
     email: '',
-    password: ''
   })
   constructor(
       private router: Router,
       private readonly supabase: SupabaseService,
       private readonly formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   async onSubmit(): Promise<void> {
     try {
       this.loading = true
-      const email = this.signInForm.value.email as string
-      const password = this.signInForm.value.password as string
+      const email = this.resetPwd.value.email as string
 
-      const { error } = await this.supabase.signInWithEmail(email, password);
+      const { error } = await this.supabase.requestResetPassword(email);
       if (error) throw error
-      else await this.router.navigate(['/home']);
+      else alert('Check your email for the reset password link!')
 
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message)
-        await this.router.navigate(['/login']);
       }
     } finally {
-      this.signInForm.reset()
+      this.resetPwd.reset()
       this.loading = false
     }
   }
+
 }

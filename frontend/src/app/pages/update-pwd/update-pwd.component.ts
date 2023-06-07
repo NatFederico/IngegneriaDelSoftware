@@ -2,44 +2,40 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import { SupabaseService} from "../../services/supabase.service";
 import {Router} from "@angular/router";
-
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  selector: 'app-update-pwd',
+  templateUrl: './update-pwd.component.html',
+  styleUrls: ['./update-pwd.component.scss']
 })
-export class SignInComponent {
+export class UpdatePwdComponent {
   loading = false
-  forgotPwd = false
 
-  signInForm = this.formBuilder.group({
-    email: '',
+  updatePwd = this.formBuilder.group({
     password: ''
   })
+
   constructor(
       private router: Router,
       private readonly supabase: SupabaseService,
       private readonly formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   async onSubmit(): Promise<void> {
     try {
       this.loading = true
-      const email = this.signInForm.value.email as string
-      const password = this.signInForm.value.password as string
+      const password = this.updatePwd.value.password as string
 
-      const { error } = await this.supabase.signInWithEmail(email, password);
+      const { error } = await this.supabase.updatePassword(password);
       if (error) throw error
-      else await this.router.navigate(['/home']);
-
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message)
-        await this.router.navigate(['/login']);
       }
     } finally {
-      this.signInForm.reset()
+      this.updatePwd.reset()
       this.loading = false
+      console.log("Password salvata");
     }
   }
+
 }

@@ -1,40 +1,38 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import { SupabaseService} from "../../services/supabase.service";
-import {AuthSession} from "@supabase/supabase-js";
 
 @Component({
-  selector: 'app-magic-link',
-  templateUrl: './magic-link.component.html',
-  styleUrls: ['./magic-link.component.scss']
+  selector: 'app-create-member',
+  templateUrl: './create-member.component.html',
+  styleUrls: ['./create-member.component.scss']
 })
-export class MagicLinkComponent {
-
+export class CreateMemberComponent {
   loading = false
 
-  signInForm = this.formBuilder.group({
+  signUpForm = this.formBuilder.group({
     email: '',
   })
-
   constructor(
       private readonly supabase: SupabaseService,
       private readonly formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   async onSubmit(): Promise<void> {
     try {
       this.loading = true
-      const email = this.signInForm.value.email as string
-      const { error } = await this.supabase.signInWithMagicLink(email)
+      const email = this.signUpForm.value.email as string
+
+      const { error } = await this.supabase.signUpWithEmail(email, email);
       if (error) throw error
-      alert('Check your email for the login link!')
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message)
       }
     } finally {
-      this.signInForm.reset()
+      this.signUpForm.reset()
       this.loading = false
     }
   }
+
 }

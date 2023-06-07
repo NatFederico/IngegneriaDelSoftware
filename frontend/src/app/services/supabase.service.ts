@@ -7,8 +7,8 @@ import {
   SupabaseClient,
   User,
 } from '@supabase/supabase-js'
+
 import { environment } from 'src/environments/environment'
-import * as diagnostics_channel from "diagnostics_channel";
 
 export interface Profile {
   id?: string
@@ -21,20 +21,39 @@ export interface Profile {
 })
 export class SupabaseService {
   private supabase: SupabaseClient
-  _session: AuthSession | null = null
+  state: string;
 
   constructor() {
-    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey)
+    const options = {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true
+      },
+    }
+    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey, options)
   }
 
-  get session() {
-    this.supabase.auth.getSession().then(({ data }) => {
-      this._session = data.session
+  public getUser(){
+    return this.supabase.auth.getUser();
+  }
+
+  public getSession() {
+    return this.supabase.auth.getSession();
+  }
+
+  public authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void): any {
+    return this.supabase.auth.onAuthStateChange(callback)
+  }
+
+  getAuthState(){
+    this.supabase.auth.onAuthStateChange((event, session) => {
+      this.state = event
+      console.log(this.state);
     })
-    return this._session
   }
 
-  profile(user: User) {
+  public getProfile(user: User) {
     return this.supabase
         .from('profiles')
         .select(`username, password`)
@@ -42,14 +61,24 @@ export class SupabaseService {
         .single()
   }
 
-  authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
-    return this.supabase.auth.onAuthStateChange(callback)
+  public signInWithMagicLink(email: string): Promise<any> {
+    return this.supabase.auth.signInWithOtp({email: email});
   }
 
-  signIn(email: string) {
-    return this.supabase.auth.signInWithOtp({ email })
+  public signOut() {
+    return this.supabase.auth.signOut();
   }
 
+  public updateProfile(profile: Profile): any {
+    const update = {
+      password: profile.password,
+      updated_at: new Date(),
+    }
+
+    return this.supabase.from('profiles').upsert(update);
+  }
+
+  //-----------------------------------------------------------------------
   signInWithEmail(email: string, pwd: string){
     return this.supabase.auth.signInWithPassword({
       email: email,
@@ -64,16 +93,13 @@ export class SupabaseService {
     })
   }
 
-  signOut() {
-    return this.supabase.auth.signOut()
+  requestResetPassword(email: string){
+    return this.supabase.auth.resetPasswordForEmail(email, {redirectTo: "http://localhost:4200/updatePassword"})
   }
 
-  updateProfile(profile: Profile) {
-    const update = {
-      ...profile,
-      updated_at: new Date(),
-    }
-
-    return this.supabase.from('profiles').upsert(update)
+  updatePassword(pwd: string){
+    return this.supabase.auth.updateUser({
+      password: pwd,
+    });
   }
 }

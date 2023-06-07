@@ -6,8 +6,10 @@ router.get("/:userId", async function (req, res) {
   const userId = req.params.userId;
   try {
     const response = await User.findById(userId).exec();
-    console.log(response);
-    return res.status(200).send(await User.findById(userId).exec());
+    if(response == null)
+      return res.status(401).send("User does not exists");
+    else
+      return res.status(200).send(await User.findById(userId).exec());
   } catch (e) {
     res.status(500).json(e);
   }

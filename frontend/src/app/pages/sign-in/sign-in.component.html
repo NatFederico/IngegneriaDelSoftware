@@ -1,7 +1,13 @@
-<div class="row flex-center flex">
-    <div>
-        <h1 class="page_title">Login</h1>
+<div class="center">
+    <ng-template #changePass>
+            <app-requestPwdChange></app-requestPwdChange>
+    </ng-template>
+
+    <div class="login">
+
         <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="form-widget">
+            <h1>Login</h1>
+
             <div>
                 <label for="email">Email</label>
                 <input
@@ -27,7 +33,11 @@
                     {{ loading ? 'Loading' : 'Login' }}
                 </button>
             </div>
+            <a (click)="forgotPwd=true">Password dimenticata?</a>
         </form>
+
+        <ng-content select="login" *ngIf="forgotPwd==false; else changePass"></ng-content>
+        <app-magic-link></app-magic-link>
 
     </div>
 </div>

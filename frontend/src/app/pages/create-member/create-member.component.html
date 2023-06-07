@@ -1,6 +1,6 @@
 <div class="row flex-center flex">
     <div>
-        <h1 class="page_title">Registrati come Team Principal</h1>
+        <h1 class="page_title">Aggiungi un membro al tuo team</h1>
         <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="form-widget">
             <div>
                 <label for="email">Email</label>
@@ -13,18 +13,16 @@
                 />
             </div>
             <div>
-                <label for="password">Password</label>
-                <input
-                        id="password"
-                        formControlName="password"
-                        class="inputField"
-                        type="text"
-                        placeholder="Your password"
-                />
+                <label for="role">Ruolo</label>
+                <select id="role">
+                    <option value="engineer">Ingegnere</option>
+                    <option value="pilot">Pilota</option>
+                    <option value="social_media_manager">Media Manager</option>
+                </select>
             </div>
             <div>
                 <button type="submit" class="button block" [disabled]="loading">
-                    {{ loading ? 'Loading' : 'Sign Up' }}
+                    {{ loading ? 'Loading' : 'Invia' }}
                 </button>
             </div>
         </form>

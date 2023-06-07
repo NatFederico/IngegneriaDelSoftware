@@ -1,8 +1,8 @@
 <div class="row flex-center flex">
-    <div class="col-6 form-widget" aria-live="polite">
-        <p class="description">or request a Magic Link</p>
-        <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="form-widget">
-            <div>
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="form-widget">
+        <h3>O richiedi un Magic Link</h3>
+
+        <div>
                 <label for="email">Email</label>
                 <input
                         id="email"
@@ -18,5 +18,4 @@
                 </button>
             </div>
         </form>
-    </div>
 </div>
