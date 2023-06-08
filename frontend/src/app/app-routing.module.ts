@@ -8,11 +8,13 @@ import {SignUpComponent} from "./pages/sign-up/sign-up.component";
 import {HomeComponent} from "./pages/home/home.component";
 import {UpdatePwdComponent} from "./pages/update-pwd/update-pwd.component";
 import {AppComponent} from "./app.component";
+import { UserGuard } from './guard/user.guard';
 
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [UserGuard]
   },
   {
     path: 'login',
@@ -20,7 +22,8 @@ const routes: Routes = [
   },
   {
     path: 'updatePassword',
-    component: UpdatePwdComponent
+    component: UpdatePwdComponent,
+    canActivate: [UserGuard]
   },
   {
     path: 'signup',
@@ -28,15 +31,18 @@ const routes: Routes = [
   },
   {
     path: 'team',
-    component: TeamComponent
+    component: TeamComponent,
+    canActivate: [UserGuard]
   },
   {
     path: 'stats',
-    component: StatsComponent
+    component: StatsComponent,
+    canActivate: [UserGuard]
   },
   {
     path: 'gallery',
-    component: GalleryComponent
+    component: GalleryComponent,
+    canActivate: [UserGuard]
   },
   {
     path: '',

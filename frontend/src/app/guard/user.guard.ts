@@ -1,14 +1,23 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { SupabaseService } from '../services/supabase.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserGuard implements CanActivate {
+
+  constructor(
+    public supabase: SupabaseService,
+    public router: Router,
+  ) { }
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+      if(!this.supabase.getSession()){
+        this.router.navigate(['login'])
+      }
     return true;
   }
   
