@@ -1,8 +1,8 @@
 <div class="center">
     <ng-template #changePass>
-            <app-requestPwdChange></app-requestPwdChange>
+        <app-requestPwdChange></app-requestPwdChange>
     </ng-template>
-
+{{isLogged()}}
     <div class="login">
 
         <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="form-widget">
@@ -10,23 +10,12 @@
 
             <div>
                 <label for="email">Email</label>
-                <input
-                        id="email"
-                        formControlName="email"
-                        class="inputField"
-                        type="email"
-                        placeholder="Your email"
-                />
+                <input id="email" formControlName="email" class="inputField" type="email" placeholder="Your email" />
             </div>
             <div>
                 <label for="password">Password</label>
-                <input
-                        id="password"
-                        formControlName="password"
-                        class="inputField"
-                        type="text"
-                        placeholder="Your password"
-                />
+                <input id="password" formControlName="password" class="inputField" type="text"
+                    placeholder="Your password" />
             </div>
             <div>
                 <button type="submit" class="button block" [disabled]="loading">

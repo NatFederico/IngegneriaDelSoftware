@@ -19,6 +19,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { RequestPwdChange } from './pages/requestPwdChange/request-pwd-change';
 import { UpdatePwdComponent } from './pages/update-pwd/update-pwd.component';
 import { CreateMemberComponent } from './pages/create-member/create-member.component';
+import { HeaderComponent } from './shared/header/header.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { CreateMemberComponent } from './pages/create-member/create-member.compo
     RequestPwdChange,
     UpdatePwdComponent,
     CreateMemberComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
     imports: [
         BrowserModule,

@@ -19,8 +19,7 @@ router.get("/:teamId", async function (req, res) {
         return res.status(404).send("Team does not exists");
       }
       return res.status(200).json(team);
-    }
-    else{
+    } else {
       return res.status(401).json({ error: "Unauthorized" });
     }
   } catch (e) {
@@ -32,7 +31,7 @@ router.get("/:teamId/users", async function (req, res) {
   const teamId = req.params.teamId;
   try {
     if (teamId === res.locals.team) {
-      const teamUsers = await Team.findById({_id: teamId}, "userId").exec();
+      const teamUsers = await Team.findById({ _id: teamId }, "userId").exec();
       return res.status(200).json(teamUsers);
     } else {
       return res.status(401).json({ error: "Unauthorized" });
@@ -46,7 +45,10 @@ router.get("/:teamId/history", async function (req, res) {
   const teamId = req.params.teamId;
   try {
     if (teamId === res.locals.team) {
-      const teamHistory = await Team.findById({_id: teamId}, "history").exec();
+      const teamHistory = await Team.findById(
+        { _id: teamId },
+        "history"
+      ).exec();
       return res.status(200).json(teamHistory);
     } else {
       return res.status(401).json({ error: "Unauthorized" });
@@ -99,13 +101,20 @@ router.put("/:teamId/addRecord", async function (req, res) {
   const teamId = req.params.teamId;
   try {
     if (teamId === res.locals.team && res.locals.role === process.env.ROLE_SM) {
-      const team = await Team.findById({_id: teamId}, "history").exec();
+      const team = await Team.findById({ _id: teamId }, "history").exec();
       const history = team["history"];
       console.log(history);
       for (let i = 0; i < history.length; i++) {
-        console.log("Check name: " + history[i].nameOfGP + " Body: " + req.body.nameOfGP);
-        console.log("Check name: " + history[i].year + " Body:" + req.body.year);
-        if (history[i].nameOfGP == req.body.nameOfGP && history[i].year == req.body.year) {
+        console.log(
+          "Check name: " + history[i].nameOfGP + " Body: " + req.body.nameOfGP
+        );
+        console.log(
+          "Check name: " + history[i].year + " Body:" + req.body.year
+        );
+        if (
+          history[i].nameOfGP == req.body.nameOfGP &&
+          history[i].year == req.body.year
+        ) {
           return res.status(200).send("Record already saved");
         }
       }
@@ -143,7 +152,11 @@ router.delete("/:teamId/removeUser/:userId", async function (req, res) {
         }
       }
       console.log(updatedList);
-      return res.status(200).json(await Team.findByIdAndUpdate(teamId, { userId: updatedList }).exec());
+      return res
+        .status(200)
+        .json(
+          await Team.findByIdAndUpdate(teamId, { userId: updatedList }).exec()
+        );
     } else {
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -161,7 +174,7 @@ router.delete("/:teamId/removeRecord/:recordId", async function (req, res) {
       let history = team["history"];
       let updatedList = [];
       for (let i = 0; i < history.length; i++) {
-        console.log("history[i]="+history[i]._id + " recordId="+recordId);
+        console.log("history[i]=" + history[i]._id + " recordId=" + recordId);
         if (history[i]._id != recordId) {
           updatedList.push(history[i]);
         }
@@ -211,7 +224,7 @@ router.delete("/:teamId/delete", async function (req, res) {
 router.post("/", async function (req, res) {
   const teamName = req.body.name;
   try {
-    const team = await Team.exists({name: req.body.name}).exec();
+    const team = await Team.exists({ name: req.body.name }).exec();
     if (team == null) {
       if (res.locals.role === process.env.ROLE_TP) {
         let newTeam;
@@ -227,11 +240,10 @@ router.post("/", async function (req, res) {
         /*await team.verify();*/
         return res.status(201).json(await newTeam.save());
       } else {
-        res.status(401).json({error: "Unauthorized"});
+        res.status(401).json({ error: "Unauthorized" });
       }
-    }
-    else{
-      res.status(401).json({error: "Team already exists"});
+    } else {
+      res.status(401).json({ error: "Team already exists" });
     }
   } catch (e) {
     res.status(500).send(e.message);

@@ -1,26 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder} from "@angular/forms";
-import { SupabaseService} from "../../services/supabase.service";
-import {Router} from "@angular/router";
+import { FormBuilder } from "@angular/forms";
+import { SupabaseService } from "../../services/supabase.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent {
-  loading = false
-  forgotPwd = false
+export class SignInComponent implements OnInit {
+  loading = false;
+  forgotPwd = false;
+  session: any;
 
   signInForm = this.formBuilder.group({
     email: '',
     password: ''
   })
   constructor(
-      private router: Router,
-      private readonly supabase: SupabaseService,
-      private readonly formBuilder: FormBuilder
-  ) {}
+    private router: Router,
+    private readonly supabase: SupabaseService,
+    private readonly formBuilder: FormBuilder
+  ) { }
+
+  ngOnInit(): void {
+    this.supabase.authChanges((event, session) => (this.session = session));
+    this.isLogged();
+  }
+
+  isLogged() {
+    if (this.session) {
+      this.router.navigate(['/home']);
+    }
+  }
 
   async onSubmit(): Promise<void> {
     try {

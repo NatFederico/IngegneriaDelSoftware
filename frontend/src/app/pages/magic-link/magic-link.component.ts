@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
-import { SupabaseService} from "../../services/supabase.service";
-import {AuthSession} from "@supabase/supabase-js";
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder } from "@angular/forms";
+import { SupabaseService } from "../../services/supabase.service";
+import { AuthSession } from "@supabase/supabase-js";
 
 @Component({
   selector: 'app-magic-link',
@@ -17,9 +17,9 @@ export class MagicLinkComponent {
   })
 
   constructor(
-      private readonly supabase: SupabaseService,
-      private readonly formBuilder: FormBuilder
-  ) {}
+    private readonly supabase: SupabaseService,
+    private readonly formBuilder: FormBuilder
+  ) { }
 
   async onSubmit(): Promise<void> {
     try {
