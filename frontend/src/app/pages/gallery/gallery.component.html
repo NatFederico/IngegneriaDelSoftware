@@ -1,1 +1,59 @@
-<p>gallery works!</p>
+<div id="headerGalleria">
+    <h1 id="titleGallery"> NOME Galleria </h1>
+    <input type="button"
+           value="✏️"
+           id="changeNameBTN"
+           (click)="changeNameGallery()"/>
+    <input type="text"
+           class="hidden"
+           value=""
+           id="changeNameText"
+           placeholder="Nuovo nome galleria"/>
+    <input type="button"
+           class="hidden"
+           id="changeNameSubmit"
+           value="Conferma modifica"
+           (click)="setNewName()"/>
+    <input type="button"
+           id="displayFormBTN"
+           value="➕"
+           (click)="displayForm()" />
+</div>
+
+
+<form id="nuovaImg" class="hidden">
+    <h3>Aggiungi una immagine alla gallery</h3>
+    <label>
+        Seleziona una immagine da caricare:
+        <input type="file"
+               name="myImage"
+               id="myImage"
+               accept="image/*" />
+    </label>
+
+    <label>
+        Inserisci il titolo dell'immagine:
+        <input type="text"
+               name="title"
+               id="title"
+               placeholder="Title"/>
+    </label>
+
+    <label>
+        Inserisci una descrizione da associare all'immagine:
+        <input type="text"
+               name="caption"
+               id="caption"
+               placeholder="Caption"/>
+    </label>
+
+    <div id="BtnContainer_form">
+        <input type="button"
+               value="Annulla"
+               style="color: darkred; border-color: darkred"
+               (click)="hideForm()" />
+        <input type="button"
+               value="Inserisci l'immagine"
+               style="color: darkgreen; border-color: darkgreen" />
+    </div>
+</form>
