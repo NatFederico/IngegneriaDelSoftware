@@ -17,9 +17,4 @@ export class HomeComponent {
     await this.apiservice.getUser("c1ba7173-e9c3-465f-af21-febe6b404e92");
   }
 
-  toggleChangePwd(){
-    this.changePw=!this.changePw;
-    return this.changePw;
-  }
-
 }

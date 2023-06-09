@@ -28,7 +28,6 @@ export class RequestPwdChange {
       const { error } = await this.supabase.requestResetPassword(email);
       if (error) throw error
       else alert('Check your email for the reset password link!')
-
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message)

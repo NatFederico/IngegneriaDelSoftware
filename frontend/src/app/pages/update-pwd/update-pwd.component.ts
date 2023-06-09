@@ -27,14 +27,15 @@ export class UpdatePwdComponent {
 
       const { error } = await this.supabase.updatePassword(password);
       if (error) throw error
+      alert('Password saved!')
+      await this.router.navigate(['/home']);
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message)
       }
     } finally {
       this.updatePwd.reset()
-      this.loading = false
-      console.log("Password salvata");
+      this.loading = false;
     }
   }
 

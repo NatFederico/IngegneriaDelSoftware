@@ -94,7 +94,7 @@ export class SupabaseService {
   }
 
   requestResetPassword(email: string){
-    return this.supabase.auth.resetPasswordForEmail(email, {redirectTo: "http://localhost:4200/updatePassword"})
+    return this.supabase.auth.resetPasswordForEmail(email)
   }
 
   updatePassword(pwd: string){
