@@ -105,12 +105,6 @@ router.put("/:teamId/addRecord", async function (req, res) {
       const history = team["history"];
       console.log(history);
       for (let i = 0; i < history.length; i++) {
-        console.log(
-          "Check name: " + history[i].nameOfGP + " Body: " + req.body.nameOfGP
-        );
-        console.log(
-          "Check name: " + history[i].year + " Body:" + req.body.year
-        );
         if (
           history[i].nameOfGP == req.body.nameOfGP &&
           history[i].year == req.body.year
