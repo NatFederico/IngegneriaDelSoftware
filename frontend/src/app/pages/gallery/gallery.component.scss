@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#headerGalleria {
+  display: flex;
+  align-items: center;
+  padding: 1em;
+}
+
+#changeNameBTN,
+#displayFormBTN {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 10px;
+}
+
+#changeNameText {
+  width: 300px;
+  height: 30px;
+  margin: 10px;
+}
+
+#changeNameSubmit {
+  width: 150px;
+  height: 50px;
+  margin: 10px;
+}
+
+form {
+  width: 20%;
+  padding: 1em;
+}
+
+form label {
+  margin: 20px 0 10px;
+}
+
+#BtnContainer_form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form input[type="button"] {
+  margin: 10px;
+  width: 50%;
+  height: 30px;
+}
+
+#caption {
+  height: 75px;
+}
+
+.hidden {
+  display: none;
+}

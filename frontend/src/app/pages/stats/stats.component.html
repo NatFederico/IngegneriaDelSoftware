@@ -1,30 +1,63 @@
- <button>2023</button>
+<div id="headerGalleria">
+    <h1 id="titleGallery"> 2023 </h1>
+    <input type="button"
+           id="displayFormBTN"
+           value="➕"
+           (click)="displayForm()" />
+</div>
 
-    <table>
-        <td>
-            <tr>Round 1 -</tr>
-            <tr>Round 2 -</tr>
-            <tr>Round 3 -</tr>
-            <tr>Round 4 -</tr>
-            <tr>Round 5 -</tr>
-            <tr>Round 6 -</tr>
-            <tr>Round 7 -</tr>
-            <tr>Round 8 -</tr>
-            <tr>Round 9 -</tr>
-            <tr>Round 10 -</tr>
-            <tr>Round 11 -</tr>
-        </td>
-        <td>
-            <tr>Round 12 -</tr>
-            <tr>Round 13 -</tr>
-            <tr>Round 14 -</tr>
-            <tr>Round 15 -</tr>
-            <tr>Round 16 -</tr>
-            <tr>Round 17 -</tr>
-            <tr>Round 18 -</tr>
-            <tr>Round 19 -</tr>
-            <tr>Round 20 -</tr>
-            <tr>Round 21 -</tr>
-            <tr>Round 22 -</tr>
-        </td>
-    </table>
+
+<form id="nuovaImg" class="hidden">
+    <h3>Aggiungi un record</h3>
+    <label>
+        Inserisci paese:
+        <input type="text"
+               name="country"
+               id="country"
+               placeholder="Paese" />
+    </label>
+
+    <label>
+        Id pilota:
+        <input type="text"
+               name="id_pilota"
+               id="id_pilota"
+               placeholder="Id pilota"/>
+    </label>
+
+    <label>
+        Inserisci posizionamento:
+        <input type="number"
+               name="posizionamento"
+               id="posizinamento"
+               min="1"
+               max="20" />
+    </label>
+
+    <div id="checkboxContainer">
+        <div>
+            <label for="startedFromPole">Pole position</label>
+            <input type="checkbox"
+                   name="tags"
+                   id="startedFromPole"
+                   value="true" />
+        </div>
+        <div>
+            <label for="fastLap">Giro veloce</label>
+            <input type="checkbox"
+                   name="tags"
+                   id="fastLap"
+                   value="true" />
+        </div>
+    </div>
+
+    <div id="BtnContainer_form">
+        <input type="button"
+               value="Annulla"
+               style="color: darkred; border-color: darkred"
+               (click)="hideForm()" />
+        <input type="button"
+               value="Inserisci record"
+               style="color: darkgreen; border-color: darkgreen" />
+    </div>
+</form>
