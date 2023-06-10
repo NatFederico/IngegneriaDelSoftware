@@ -82,7 +82,7 @@ router.put("/:teamId/editTeam/:userId", async function (req, res) {
       let users = team["userId"];
       for (let i = 0; i < users.length; i++) {
         if (users[i] === userId) {
-          return res.status(200).send("User already in team");
+          return res.status(401).send("User already in team");
         }
       }
       users.push(userId);
@@ -109,7 +109,7 @@ router.put("/:teamId/addRecord", async function (req, res) {
           history[i].nameOfGP == req.body.nameOfGP &&
           history[i].year == req.body.year
         ) {
-          return res.status(200).send("Record already saved");
+          return res.status(401).send("Record already saved");
         }
       }
       const record = new Record({
