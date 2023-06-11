@@ -17,5 +17,15 @@ router.delete('/:calId', async function (req, res) {
         return res.status(500).json(e.message)
     }
 })
+router.post('/', function (req, res) {
+    try {
+        Calendar.create(req.body, function (err, cal) {
+            if (err) return res.status(500).json(err.message)
+            return res.status(200).send('ok')
+        })
+    } catch (e) {
+        return res.status(500).json(e.message)
+    }
+})
 
 module.exports = router;
