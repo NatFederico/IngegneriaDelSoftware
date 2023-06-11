@@ -1,53 +1,49 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderComponent } from './core/components/header/header.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { MagicLinkComponent } from './pages/magic-link/magic-link.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { FormsModule } from '@angular/forms';
+import { ClassicLoginComponent } from './pages/classic-login/classic-login.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
+import { TeamOverviewComponent } from './pages/team-overview/team-overview.component';
 import { DepartmentComponent } from './pages/department/department.component';
-import { DocsComponent } from './pages/docs/docs.component';
-import { ReactiveFormsModule } from "@angular/forms";
-import { AccountComponent } from './pages/account/account.component';
-import { TeamComponent } from './pages/team/team.component';
 import { BoardComponent } from './pages/board/board.component';
 import { StatsComponent } from './pages/stats/stats.component';
-import { MagicLinkComponent } from './pages/magic-link/magic-link.component';
-import { SignUpComponent } from './pages/sign-up/sign-up.component';
-import { HomeComponent } from './pages/home/home.component';
-import { RequestPwdChange } from './pages/requestPwdChange/request-pwd-change';
-import { UpdatePwdComponent } from './pages/update-pwd/update-pwd.component';
-import { CreateMemberComponent } from './pages/create-member/create-member.component';
-import { HeaderComponent } from './shared/header/header.component';
-import { FooterComponent } from './shared/footer/footer.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { HttpClientModule } from '@angular/common/http';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignInComponent,
+    HeaderComponent,
+    LoginComponent,
+    SignUpComponent,
+    MagicLinkComponent,
+    DashboardComponent,
+    ClassicLoginComponent,
     GalleryComponent,
+    TeamOverviewComponent,
     DepartmentComponent,
-    DocsComponent,
-    AccountComponent,
-    TeamComponent,
     BoardComponent,
     StatsComponent,
-    MagicLinkComponent,
-    SignUpComponent,
-    HomeComponent,
-    RequestPwdChange,
-    UpdatePwdComponent,
-    CreateMemberComponent,
-    HeaderComponent,
-    FooterComponent,
   ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        AppRoutingModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    FormsModule,
+    PdfViewerModule,
+    HttpClientModule,
+    NgChartsModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

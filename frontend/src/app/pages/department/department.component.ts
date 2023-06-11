@@ -1,5 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AuthSession} from "@supabase/supabase-js";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-department',
@@ -7,9 +6,6 @@ import {AuthSession} from "@supabase/supabase-js";
   styleUrls: ['./department.component.scss']
 })
 export class DepartmentComponent implements OnInit {
-
-  @Input()
-  session!: AuthSession
 
   constructor() { }
 

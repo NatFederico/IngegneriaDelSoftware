@@ -2,14 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
-  selector: 'app-magic-link',
-  templateUrl: './magic-link.component.html',
-  styleUrls: ['./magic-link.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class MagicLinkComponent {
-
-  loading: boolean;
+export class LoginComponent {
+  
+  authMethod:boolean = false;
   email: string;
+  password: string;
+  loading: boolean;
 
   constructor(private supabase: SupabaseService) { }
 
@@ -29,4 +31,7 @@ export class MagicLinkComponent {
     }
   }
 
+  changeauthMethod(){
+    this.authMethod = !this.authMethod;
+  }
 }

@@ -1,63 +1,27 @@
-<div id="headerGalleria">
-    <h1 id="titleGallery"> 2023 </h1>
-    <input type="button"
-           id="displayFormBTN"
-           value="➕"
-           (click)="displayForm()" />
+<div>
+    <h2>Yearly Data</h2>
+    <div class="data-container">
+        <div class="raw-data">
+            <h3>Table View</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of yearlyData">
+                        <td>{{ data.year }}</td>
+                        <td>{{ data.value }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="chart-container">
+            <h3>Bar Chart</h3>
+            <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                [legend]="barChartLegend" [chartType]="barChartType"></canvas> -->
+        </div>
+    </div>
 </div>
-
-
-<form id="nuovaImg" class="hidden">
-    <h3>Aggiungi un record</h3>
-    <label>
-        Inserisci paese:
-        <input type="text"
-               name="country"
-               id="country"
-               placeholder="Paese" />
-    </label>
-
-    <label>
-        Id pilota:
-        <input type="text"
-               name="id_pilota"
-               id="id_pilota"
-               placeholder="Id pilota"/>
-    </label>
-
-    <label>
-        Inserisci posizionamento:
-        <input type="number"
-               name="posizionamento"
-               id="posizinamento"
-               min="1"
-               max="20" />
-    </label>
-
-    <div id="checkboxContainer">
-        <div>
-            <label for="startedFromPole">Pole position</label>
-            <input type="checkbox"
-                   name="tags"
-                   id="startedFromPole"
-                   value="true" />
-        </div>
-        <div>
-            <label for="fastLap">Giro veloce</label>
-            <input type="checkbox"
-                   name="tags"
-                   id="fastLap"
-                   value="true" />
-        </div>
-    </div>
-
-    <div id="BtnContainer_form">
-        <input type="button"
-               value="Annulla"
-               style="color: darkred; border-color: darkred"
-               (click)="hideForm()" />
-        <input type="button"
-               value="Inserisci record"
-               style="color: darkgreen; border-color: darkgreen" />
-    </div>
-</form>

@@ -1,0 +1,22 @@
+<div class="container">
+    <h2>Team Members</h2>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let member of teamMembers">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ member.name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ member.email }}</h6>
+            <p class="card-text">Role: {{ member.role }}</p>
+            <p *ngIf="isEngineer()" class="card-text">Department: {{ member.department }}</p>
+            <button class="btn btn-danger" (click)="removeMember(member.id)">
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12" *ngIf="teamMembers.length === 0">
+        <p class="text-center">No members found</p>
+      </div>
+    </div>
+  </div>
+  
