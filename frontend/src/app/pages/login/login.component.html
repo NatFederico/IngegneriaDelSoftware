@@ -8,7 +8,7 @@
             <app-magic-link [hidden]="authMethod"></app-magic-link>
             <app-classic-login [hidden]="!authMethod"></app-classic-login>
             <br>
-            <button type="button" class="btn btn-sm btn-secondary" (click)="changeauthMethod()">Usa mail e password</button>
+            <button type="button" class="btn btn-sm btn-secondary" (click)="changeauthMethod()">{{buttonText()}}</button>
         </div>
     </div>
 </div>

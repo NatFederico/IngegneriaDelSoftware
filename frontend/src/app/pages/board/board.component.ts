@@ -8,23 +8,23 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class BoardComponent implements OnInit {
 
-  pdfs: string[];
+  pdfs: string[] = [];
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
-    //this.fetchPdfs();
+    this.fetchPdfs();
   }
 
-  // fetchPdfs() {
-  //   this.apiService.getPdfs().subscribe(
-  //     (data: any) => {
-  //       this.pdfs = data.pdfs;
-  //     },
-  //     (error: any) => {
-  //       console.error('Error fetching PDFs:', error);
-  //     }
-  //   );
-  // }
+  fetchPdfs() {
+    this.apiService.getDocuments().subscribe(
+      (data: any) => {
+        this.pdfs = data.pdfs;
+      },
+      (error: any) => {
+        console.error('Error fetching PDFs:', error);
+      }
+    );
+  }
 
 }

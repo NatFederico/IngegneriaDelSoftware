@@ -19,6 +19,7 @@ import { StatsComponent } from './pages/stats/stats.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { HttpClientModule } from '@angular/common/http';
 import { NgChartsModule } from 'ng2-charts';
+import { CalendarComponent } from './pages/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { NgChartsModule } from 'ng2-charts';
     DepartmentComponent,
     BoardComponent,
     StatsComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,

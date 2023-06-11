@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public ngOnInit() {
-    //this.supabase.getAuthState();
+    this.supabase.getAuthState();
     this.supabase.authChanges((event, session) => (this.session = session))
   }
 

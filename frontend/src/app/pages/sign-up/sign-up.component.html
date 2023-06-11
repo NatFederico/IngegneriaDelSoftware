@@ -1,6 +1,8 @@
-<div class="container">
-    <h2>Sign Up</h2>
+<div class="container d-flex flex-row min-vh-100 justify-content-center flex-fixed-width-item align-items-center">
     <form (ngSubmit)="submitForm()" class="needs-validation">
+       <div class="form-group">
+        <h2>Sign Up</h2>
+       </div>
         <div class="form-group">
             <label for="name">Name:</label>
             <input type="text" id="name" [(ngModel)]="name" name="name" class="form-control" required>
@@ -17,6 +19,11 @@
             <label for="password">Password:</label>
             <input type="password" id="password" [(ngModel)]="password" name="password" class="form-control" required>
         </div>
+        <div class="form-group">
+            <label for="password">Team:</label>
+            <input type="text" id="team" [(ngModel)]="team" name="team" class="form-control" required>
+        </div>
+        <br>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Sign Up</button>
         </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
@@ -6,14 +7,24 @@ import { SupabaseService } from 'src/app/services/supabase.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements  OnInit{
   
   authMethod:boolean = false;
   email: string;
   password: string;
   loading: boolean;
+  session: any;
 
-  constructor(private supabase: SupabaseService) { }
+
+  constructor(private supabase: SupabaseService, private router: Router) { }
+
+  public ngOnInit() {
+    this.supabase.getAuthState();
+    this.supabase.authChanges((event, session) => (this.session = session))
+    if(this.session){
+      this.router.navigate(['/dashboard']);
+    }
+  }
 
   async onSubmit() {
     try {
@@ -33,5 +44,13 @@ export class LoginComponent {
 
   changeauthMethod(){
     this.authMethod = !this.authMethod;
+  }
+
+  buttonText(){
+    if(!this.authMethod){
+      return "Usa la tua email e password per accedere";
+    }else{
+      return "Usa magic link per accedere";
+    }
   }
 }

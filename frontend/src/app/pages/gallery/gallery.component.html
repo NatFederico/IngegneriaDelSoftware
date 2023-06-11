@@ -1,5 +1,5 @@
 <div class="container">
-    <h2>Image Gallery</h2>
+    <h2>Galleria</h2>
     <div class="row">
         <div *ngIf="images.length > 0; else noImagesTemplate">
             <div class="col-md-4" *ngFor="let image of images">
@@ -13,6 +13,6 @@
         </div>
     </div>
     <ng-template #noImagesTemplate>
-        <div class="alert alert-info">No images available.</div>
+        <div class="alert alert-info">Nessuna foto disponibile.</div>
     </ng-template>
 </div>

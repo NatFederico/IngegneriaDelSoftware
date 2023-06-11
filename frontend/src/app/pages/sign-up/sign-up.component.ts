@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -7,20 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpComponent {
 
-  constructor() { }
+  constructor(private supabaseService: SupabaseService) { }
 
   name: string;
   surname: string;
   email: string;
   password: string;
+  team: string;
+  loading = false;
 
-  submitForm() {
-    // Perform sign-up logic here, e.g., calling an authentication service
-    console.log('Form submitted!');
-    console.log('Name:', this.name);
-    console.log('Surname:', this.surname);
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
+  async submitForm() {
+    try {
+      this.loading = true
+      localStorage.setItem('team', this.team);
+      const { error } = await this.supabaseService.signUpWithEmail(this.email, this.password);
+      if (error) throw error
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message)
+      }
+    } finally {
+      alert('Check your email for the login link!')
+      this.loading = false
+    }
   }
 
 }
