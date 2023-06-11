@@ -79,7 +79,6 @@ router.get("/:teamId/:deptId/component/:compId", async function (req, res) {
 
 });
 
-//TODO Funziona perché ho barato e restituisco i dipartimenti invece del team che invece non si aggiorna
 router.put("/:teamId/:deptId", async function (req, res) {
   const teamId = req.params.teamId;
   const deptId = req.params.deptId;
