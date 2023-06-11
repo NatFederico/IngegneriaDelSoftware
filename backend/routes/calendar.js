@@ -1,4 +1,6 @@
 let express = require('express');
+const {Calendar} = require("../shared/calendar.model");
+const {Team} = require("../shared/team.model");
 let router = express.Router();
 
 router.get('/', async function (req, res) {
@@ -17,12 +19,18 @@ router.delete('/:calId', async function (req, res) {
         return res.status(500).json(e.message)
     }
 })
-router.post('/', function (req, res) {
+router.post('/:calId', async function (req, res) {
     try {
-        Calendar.create(req.body, function (err, cal) {
-            if (err) return res.status(500).json(err.message)
-            return res.status(200).send('ok')
-        })
+        const { title, caption, date, duration, location } = req.body;
+        const newEvent = new Calendar({
+            title,
+            caption,
+            date,
+            duration,
+            location
+        });
+        const savedEvent = await newEvent.save();
+        res.json(savedEvent);
     } catch (e) {
         return res.status(500).json(e.message)
     }
