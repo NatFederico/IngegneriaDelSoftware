@@ -11,7 +11,7 @@ export class ApiService {
   API_URL = environment.API_URL;
   httpOptions = {
     headers: new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjg2MDgzMDk1LCJzdWIiOiJjMWJhNzE3My1lOWMzLTQ2NWYtYWYyMS1mZWJlNmI0MDRlOTIiLCJlbWFpbCI6InNvcnJlbnRpbm9zYXJhMjhAZ21haWwuY29tIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6e30sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE2ODYwNzk0OTV9XSwic2Vzc2lvbl9pZCI6IjI1MGYzNGMwLWMyNGUtNGI5OC04NzA5LWM4MzFhYjBhODA3MCJ9.gMTI75En5OntpnA52t6Ad19vUfdEteKvdY6GvUpDiDo'
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
     })
   }
 
