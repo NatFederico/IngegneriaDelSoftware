@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
 const RecordSchema = new mongoose.Schema({
-    _id: String,
     year: Number,
     nameOfGP: String,
     pilotId: String,

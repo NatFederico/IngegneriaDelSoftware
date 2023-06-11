@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const {ComponentSchema} = require('./component.model')
 
 const DepartmentSchema = new mongoose.Schema({
-    _id: String,
     name: String,
     caption: String,
     manager: String,

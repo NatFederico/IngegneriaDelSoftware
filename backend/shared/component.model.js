@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
 const ComponentSchema = new mongoose.Schema({
-    _id: String,
     name: String,
     description: String,
     n_available: Number,

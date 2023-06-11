@@ -4,6 +4,7 @@ const {TeamSchema} = require('./team.model')
 const UserSchema = new mongoose.Schema({
     _id: {
         type: String,
+        required: true
     },
     email: {
         type: String,
@@ -17,7 +18,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    roles: [String],
+    role: String,
 });
 
 

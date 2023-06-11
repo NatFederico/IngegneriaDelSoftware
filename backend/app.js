@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const mongoose = require("mongoose");
+const mongoose = require("mongoose").default;
 const jwt = require("jsonwebtoken");
 
 const usersRouter = require("./routes/users");
@@ -39,7 +39,8 @@ app.use(function (req, res, next) {
         if (err) {
           return res.status(401).json(err.message);
         }
-        res.locals.uid = decoded.uid;
+        res.locals.uid = decoded.sub;
+        res.locals.email = decoded.email;
         res.locals.team = req.headers.team;
         res.locals.role = req.headers.role;
         return next();
@@ -58,7 +59,6 @@ app.use("/board", boardRouter);
 app.use("/gallery", galleryRouter);
 app.use("/calendar", calendarRouter);
 
-module.exports = app;
 
 const start = async () => {
   try {
@@ -71,3 +71,5 @@ const start = async () => {
 };
 
 start();
+
+module.exports = app;

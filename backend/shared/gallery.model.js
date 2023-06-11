@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 const {PhotoSchema} = require('./photo.model')
 
-const GallerySchema = mongoose.Schema({
-    _id: String,
+const GallerySchema = new mongoose.Schema({
     title: String,
     caption: String,
     lastEdit: Date,
