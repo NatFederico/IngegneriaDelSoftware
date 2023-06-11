@@ -1,62 +1,30 @@
-* {
-  margin: 0;
-  padding: 0;
-}
+.data-container {
+    display: flex;
+    justify-content: space-between;
+  }
 
-#headerGalleria {
-  display: flex;
-  align-items: center;
-  padding: 1em;
-}
+  .raw-data {
+    flex-basis: 50%;
+  }
 
-#displayFormBTN {
-  width: 50px;
-  height: 50px;
-  background-color: rgba(255, 255, 255, 0.2);
-  margin: 10px;
-}
+  .chart-container {
+    flex-basis: 50%;
+  }
 
-form {
-  width: 20%;
-  padding: 1em;
-}
+  table {
+    width: 100%;
+  }
 
-form label {
-  margin: 20px 0 10px;
-}
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+  }
 
-#checkboxContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0 10px 0;
-}
+  th {
+    background-color: #f2f2f2;
+  }
 
-#checkboxContainer div{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
-}
-
-#checkboxContainer label {
-  margin: 0 10px 0 0;
-}
-
-#BtnContainer_form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-form input[type="button"] {
-  margin: 10px;
-  width: 50%;
-  height: 30px;
-}
-
-.hidden {
-  display: none;
-}
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }

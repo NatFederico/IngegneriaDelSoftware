@@ -20,8 +20,8 @@ export interface Profile {
   providedIn: 'root',
 })
 export class SupabaseService {
-  private supabase: SupabaseClient
-  state: string;
+  private supabase: SupabaseClient;
+  state: string
 
   constructor() {
     const options = {
@@ -94,7 +94,7 @@ export class SupabaseService {
   }
 
   requestResetPassword(email: string){
-    return this.supabase.auth.resetPasswordForEmail(email)
+    return this.supabase.auth.resetPasswordForEmail(email, {redirectTo: "http://localhost:4200/updatePassword"})
   }
 
   updatePassword(pwd: string){

@@ -1,101 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Oswald:500');
+$primary-color: #EF1A2D;
+$secondary-color: #000;
 
-html, body {
-  font-family: Oswald, "Roboto Light", sans-serif;
+@font-face {
+    font-family: "FormulaOneRegular";
+    src: url('./assets/regular.ttf') format("truetype");
+}
+@font-face {
+    font-family: 'FormulaOneBold';
+    src: url('./assets/bold.ttf');
+}
+@font-face {
+    font-family: 'FormulaOneWide';
+    src: url('./assets/wide.ttf');
 }
 
-.center {
-  align-content: center;
-  align-items: center;
-}
-
-p {
-  font-family: "Roboto Thin", sans-serif;
-  font-size: 0.8rem;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-}
-
-header {
-  background-color: #EF1A2D;
-}
-
-.logo {
-  padding: 10px;
-  color: white;
-  font-family: 'Racing Sans One', cursive;
-}
-
-.page_title {
-  padding: 8px;
-  color: black;
-  font-family: 'Racing Sans One', cursive;
-  text-align: center;
-}
-
-button,
-.button {
-  color: black;
-  border: black;
-  background-color: #EF1A2D;
-  text-align: center;
-  border-radius: 10px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-}
-
-.form-widget {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-  padding: 15px;
-}
-
-.form-widget > .button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background-color: #444444;
-  text-transform: none !important;
-  transition: all 0.2s ease;
-}
-
-.form-widget .button:hover {
-  background-color: #cc0e00;
-  color: white;
-}
-
-.form-widget .button > .loader {
-  width: 17px;
-  animation: spin 1s linear infinite;
-  filter: invert(1);
-}
-
-label {
-  display: block;
-  margin: 5px 0;
-  color: black;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-}
-
-input {
-  width: 100%;
-  border-radius: 5px;
-  border: 1px solid lightgray;
-  padding: 8px;
-  font-size: 0.9rem;
-  color: black;
-}
-
-input[disabled] {
-  color: grey;
+.logo{
+    font-family: "Racing Sans One", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }

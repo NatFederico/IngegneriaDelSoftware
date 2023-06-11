@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AuthSession} from "@supabase/supabase-js";
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-board',
@@ -8,11 +8,23 @@ import {AuthSession} from "@supabase/supabase-js";
 })
 export class BoardComponent implements OnInit {
 
-  @Input()
-  session!: AuthSession
-  constructor() { }
+  pdfs: string[];
 
-  ngOnInit(): void {
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit() {
+    //this.fetchPdfs();
   }
+
+  // fetchPdfs() {
+  //   this.apiService.getPdfs().subscribe(
+  //     (data: any) => {
+  //       this.pdfs = data.pdfs;
+  //     },
+  //     (error: any) => {
+  //       console.error('Error fetching PDFs:', error);
+  //     }
+  //   );
+  // }
 
 }

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder} from "@angular/forms";
-import { SupabaseService} from "../../services/supabase.service";
 
 @Component({
   selector: 'app-sign-up',
@@ -8,34 +6,21 @@ import { SupabaseService} from "../../services/supabase.service";
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent {
-  loading = false
 
-  signUpForm = this.formBuilder.group({
-    email: '',
-    password: '',
-    team: ''
-  })
-  constructor(
-      private readonly supabase: SupabaseService,
-      private readonly formBuilder: FormBuilder
-  ) { }
+  constructor() { }
 
-  async onSubmit(): Promise<void> {
-    try {
-      this.loading = true
-      const email = this.signUpForm.value.email as string
-      const password = this.signUpForm.value.password as string
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
 
-      const { error } = await this.supabase.signUpWithEmail(email, password);
-      if (error) throw error
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message)
-      }
-    } finally {
-      this.signUpForm.reset()
-      this.loading = false
-    }
+  submitForm() {
+    // Perform sign-up logic here, e.g., calling an authentication service
+    console.log('Form submitted!');
+    console.log('Name:', this.name);
+    console.log('Surname:', this.surname);
+    console.log('Email:', this.email);
+    console.log('Password:', this.password);
   }
 
 }
